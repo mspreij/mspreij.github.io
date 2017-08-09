@@ -1,0 +1,70 @@
+<html id="iframeHTML">
+
+<head>
+<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<canvas id="canvas" width="400" height="300"></canvas><script src="http://cloud.mech.cx/projects/canvas/js/canvas.js"></script><script>canv = document.getElementById("canvas");
+ctx = canv.getContext("2d");
+
+width  = canv.width;
+height = canv.height;
+
+ctx.lineWidth = 2;
+ctx.strokeStyle = "rgb(255,0,127)";
+ctx.strokeRect(0, 0, width, height);
+
+ctx.strokeStyle = "black";
+ctx.fillStyle = "red";
+ctx.fillRect(15, 15, 90, 40);
+
+// for some weird reason lines are drawn in between 2 pixels, so a 1-pixel wide line that starts
+// on "whole pixel" coordinates, integers, will be spread out over two pixels wide at half intensity (anti-aliased, like)
+// I mean, look at these!
+ctx.lineWidth = 1;
+ctx.strokeRect(120.5, 10.5, 90, 40); // sharp
+ctx.strokeRect(125, 15, 90, 40); // aliased/gray
+ctx.lineWidth = 2;
+ctx.strokeRect(130, 20, 90, 40); // sharp
+ctx.strokeRect(135.5, 25.5, 90, 40); // aliased/gray
+
+ctx.font = "16px consolas";
+
+ctx.fillStyle = 'rgb(250,40,40)';
+ctx.fillText("Red", 10, 100);
+
+ctx.fillStyle = 'rgb(0,180,0)';
+ctx.fillText("Green", 20, 120);
+
+tw = ctx.measureText("Blue").width;
+ctx.fillStyle = 'rgb(0,0,250)';
+ctx.fillText("Blue", 30, 150);
+ctx.lineWidth = 1;
+ctx.strokeRect(30, 136, tw, 16);
+
+// big light-green square
+ctx.fillStyle = "rgb(240,255,220)";
+ctx.fillRect(80, 80, 220, 220);
+
+// draw triangle (/polygon)
+ctx.lineWidth = 2;
+ctx.beginPath();
+ctx.moveTo(250,125);
+ctx.lineTo(250,175);
+ctx.lineTo(200,175);
+ctx.closePath(); // this draws the last line
+ctx.fillStyle = "rgb(0,255,0)";
+ctx.stroke(); // use .fill() for a filled rectangle
+
+// fancy grid thing
+ctx.lineWidth = 1;
+ctx.strokeStyle = "blue";
+ctx.beginPath();
+for(i=0;i<200;i+=10) {
+  ctx.moveTo(100, 100+i);
+  ctx.lineTo(100+i,300);
+}
+ctx.stroke();
+</script></body></html>
